@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TutorSystem.SelfReportController">
+   <top>
+      <HBox alignment="CENTER" prefHeight="69.0" prefWidth="1024.0" style="-fx-background-color: #2ad14b;" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Self-report">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label layoutX="107.0" layoutY="80.0" text="How confident are you feeling right now ?">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="108.0" layoutY="205.0" text="How interested are you feeling right now?">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <RadioButton layoutX="129.0" layoutY="127.0" mnemonicParsing="false" textAlignment="CENTER" />
+            <RadioButton layoutX="188.0" layoutY="127.0" mnemonicParsing="false" textAlignment="CENTER" />
+            <RadioButton layoutX="245.0" layoutY="127.0" mnemonicParsing="false" textAlignment="CENTER" />
+            <RadioButton layoutX="303.0" layoutY="127.0" mnemonicParsing="false" textAlignment="CENTER" />
+            <RadioButton layoutX="359.0" layoutY="127.0" mnemonicParsing="false" textAlignment="CENTER" />
+            <Label layoutX="94.0" layoutY="154.0" text="Not confident at all" />
+            <Label layoutX="353.0" layoutY="154.0" text="Very confident" />
+            <RadioButton layoutX="128.0" layoutY="256.0" mnemonicParsing="false" textAlignment="CENTER" />
+            <RadioButton layoutX="187.0" layoutY="256.0" mnemonicParsing="false" textAlignment="CENTER" />
+            <RadioButton layoutX="244.0" layoutY="256.0" mnemonicParsing="false" textAlignment="CENTER" />
+            <RadioButton layoutX="302.0" layoutY="256.0" mnemonicParsing="false" textAlignment="CENTER" />
+            <RadioButton layoutX="358.0" layoutY="256.0" mnemonicParsing="false" textAlignment="CENTER" />
+            <Label layoutX="93.0" layoutY="283.0" text="Not interested at all" />
+            <Label layoutX="352.0" layoutY="283.0" text="Very interested" />
+         </children>
+      </AnchorPane>
+   </center>
+</BorderPane>

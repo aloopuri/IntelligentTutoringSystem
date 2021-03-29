@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="currentPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TutorSystem.Homepage">
+   <right>
+      <VBox fx:id="agentInterface" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #97D992;" BorderPane.alignment="CENTER">
+         <children>
+            <ImageView fitHeight="216.0" fitWidth="218.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/EZ%20agent.png" />
+               </image>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </ImageView>
+            <TextArea editable="false" prefHeight="298.0" prefWidth="249.0" text="This is where the agent's messages go" wrapText="true" />
+         </children>
+      </VBox>
+   </right>
+   <left>
+      <VBox prefHeight="699.0" prefWidth="189.0" spacing="10.0" style="-fx-background-color: #97D992;" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="statementsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openLearnPage" prefHeight="52.0" prefWidth="145.0" text="Statements" />
+            <Button fx:id="cdtnStatementBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadLearningPage" prefHeight="52.0" text="Condtional Statements" />
+            <Button fx:id="loopsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#loadLearningPage" prefHeight="52.0" prefWidth="145.0" text="Loops" />
+            <Button fx:id="questionBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openQuestionPage" prefHeight="52.0" prefWidth="145.0" text="Questions" />
+            <Accordion>
+              <panes>
+                <TitledPane animated="false" text="untitled 1">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" text="untitled 2">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </TitledPane>
+                <TitledPane animated="false" text="untitled 3">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                  </content>
+                </TitledPane>
+              </panes>
+            </Accordion>
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="145.0" text="Self-Report" />
+            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#testInterpreter" prefHeight="52.0" prefWidth="145.0" text="Code editor" />
+         </children>
+      </VBox>
+   </left>
+   <top>
+      <HBox alignment="CENTER" prefHeight="69.0" prefWidth="1024.0" style="-fx-background-color: #2ad14b;" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Welcome!">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </HBox>
+   </top>
+   <center>
+      <Label text="Choose a topic from the sidebar" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+   </center>
+</BorderPane>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TutorSystem.MultipleChoice">
+   <top>
+      <VBox alignment="TOP_CENTER" prefWidth="100.0" spacing="15.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label fx:id="question" text="QUESTION " textAlignment="CENTER" wrapText="true">
+               <font>
+                  <Font size="30.0" />
+               </font>
+            </Label>
+            <Label fx:id="questionCode" maxHeight="1.7976931348623157E308" minHeight="-Infinity" prefWidth="415.0" text=" Code" wrapText="true">
+               <font>
+                  <Font name="Courier New" size="14.0" />
+               </font>
+            </Label>
+         </children>
+         <padding>
+            <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
+         </padding>
+      </VBox>
+   </top>
+   <center>
+      <VBox alignment="CENTER_LEFT" prefWidth="100.0" spacing="25.0" BorderPane.alignment="CENTER">
+         <children>
+            <RadioButton fx:id="option1" mnemonicParsing="false" text="Option 1">
+               <toggleGroup>
+                  <ToggleGroup fx:id="toggleGroup" />
+               </toggleGroup>
+            </RadioButton>
+            <RadioButton fx:id="option2" mnemonicParsing="false" text="Option 2" toggleGroup="$toggleGroup" />
+            <RadioButton fx:id="option3" mnemonicParsing="false" text="Option 3" toggleGroup="$toggleGroup" />
+            <RadioButton fx:id="option4" mnemonicParsing="false" text="Option 4" toggleGroup="$toggleGroup" />
+         </children>
+         <padding>
+            <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+         </padding>
+      </VBox>
+   </center>
+   <bottom>
+      <Button fx:id="checkAnswerBtn" alignment="CENTER" mnemonicParsing="false" onAction="#checkAnswer" prefHeight="50.0" prefWidth="100.0" text="Check" BorderPane.alignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Button>
+   </bottom>
+   <padding>
+      <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+   </padding>
+</BorderPane>

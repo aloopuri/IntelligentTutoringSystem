@@ -1,0 +1,8 @@
+public class MyClass { 
+    public static void main(String[] args) { 
+        String x, y;
+        x = "'abc'";
+        y = "'10'";
+       System.out.println(x+y);
+    } 
+} 

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TutorSystem.LoginPage">
+   <children>
+      <VBox alignment="TOP_CENTER" layoutX="241.0" layoutY="223.0" prefHeight="269.0" prefWidth="568.0" spacing="10.0">
+         <children>
+            <Label fx:id="header" alignment="CENTER" text="Please enter your Username and Password&#10;(DO NOT USE YOUR REAL PASSWORDS)" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <TextField fx:id="usernameBox" prefHeight="45.0" prefWidth="250.0" promptText="Username" />
+            <TextField fx:id="passwordBox" prefHeight="45.0" prefWidth="250.0" promptText="Password" />
+            <Label fx:id="errorMessage" text="Label" />
+            <Button fx:id="loginButton" mnemonicParsing="false" onAction="#checkLogin" prefHeight="40.0" prefWidth="100.0" text="Login" textAlignment="CENTER" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
