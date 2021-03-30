@@ -16,6 +16,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,7 +45,7 @@ public class QuestionPage {
     
     private final static int DIFFICULTY_INDEX = 0;
     private final static int QUESTION_TYPE_INDEX = 1;
-    private final static int QUESTION_INDEX = 2;
+    private final static int QUESTION_TITLE_INDEX = 2;
     private final static int CODE_INDEX = 3;
     private final static int CORRECT_ANS_INDEX = 4;
     private final static int INCORRECT_ANS_INDEX = 5;
@@ -65,11 +68,76 @@ public class QuestionPage {
     @FXML private Button hintBtn;
     @FXML private Button skipBtn;
     
-    private Question question;
+    private List<String []> allQuestions;
+    
+//    private Question question;
 
     
     public QuestionPage(){
 //        question = new MultipleChoice();
+        allQuestions = new ArrayList();
+        try {
+            getQuestionData();
+        } catch (CsvValidationException ex) {
+            System.out.println("Couldn't retrieve files");
+        }
+        
+    }
+    
+    private void getQuestionData() throws CsvValidationException{
+        try {
+            URL url = getClass().getResource("questions.csv");
+            CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
+            String [] row;
+            reader.readNext(); // Skips heading rows
+            while ((row = reader.readNext()) != null){
+                allQuestions.add(row);
+            }
+            
+        } catch (IOException | URISyntaxException ex) {
+//            Logger.getLogger(QuestionPage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    @FXML
+    public void getRandomQuestion() throws IOException, CsvValidationException{
+        Random rand = new Random();
+        int index = rand.nextInt(allQuestions.size());
+        for (String []x : allQuestions){
+            System.out.println(x[DIFFICULTY_INDEX]);
+        }
+        System.out.println("SIZEEEEEEEEEEEE: "+ allQuestions.size());
+        System.out.println("INDEXXXXXXXXX: "+index);
+        String [] questionParam = allQuestions.get(index);
+        System.out.println(allQuestions.size());
+//        System.out.println(data[QUESTION_TYPE_INDEX]);
+//        String type = getQuestionClassType(data[QUESTION_TYPE_INDEX]);
+//        System.out.println(type);
+        loadQuestion(questionParam);
+    }
+    
+    private String getQuestionClassType(String type){
+        if (type.equals("MCQ")){
+            return "MultipleChoice";
+        }
+        else if (type.equals("MISSING_LINE")){
+            return "MissingLine";
+        }
+        else if (type.equals("CODING")){
+            return "CodingQuestion";
+        }
+        return null;
+    }
+    
+    public void loadQuestion(String [] questionParam) throws IOException, CsvValidationException{
+        
+        String type = getQuestionClassType(questionParam[QUESTION_TYPE_INDEX]);
+        System.out.println("TYPE: "+ type +", "+questionParam[QUESTION_TYPE_INDEX]);
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(type + ".fxml"));
+        Parent pane = loader.load();
+        Question controller = loader.getController();
+        createQuestion(controller, questionParam);
+        borderPane.setCenter(pane);
     }
     
     @FXML 
@@ -85,6 +153,24 @@ public class QuestionPage {
 //        Parent mcq = FXMLLoader.load(getClass().getResource("MultipleChoice.fxml"));
         borderPane.setCenter(pane);        
 
+    }
+    
+    public void createQuestion(Question controller, String [] data){
+        if (data[QUESTION_TYPE_INDEX].equals("MCQ")){
+            System.out.println("1:    HERRRRRRRREEEEEEEEEE");
+            MultipleChoice mc = (MultipleChoice) controller;
+            setupMCQ(data, mc);
+        }
+        else if (data[QUESTION_TYPE_INDEX].equals("MISSING_LINE")){
+            System.out.println("2: LINEEEEEEEEEEEEEEEEEEEEEEEEEEE");
+            MissingLine ml = (MissingLine) controller;
+            setupMissingLineQuestion(data, ml);
+        }
+        else if (data[QUESTION_TYPE_INDEX].equals("CODING")){
+            System.out.println("3: CODIIIIIIIIIIIIIING");
+            CodingQuestion cq = (CodingQuestion) controller;
+            setupCodingQuestion(data, cq);
+        }
     }
     
     public void createQuestion(Question controller) throws CsvValidationException{
@@ -105,17 +191,15 @@ public class QuestionPage {
 //                        System.out.println("jsdslkjdjdsjdkldkjkjsLKJSNDKSLN");
 //                        break;                
 //                }
-                if (row[QUESTION_TYPE_INDEX].equals("MCQ")){
-                    continue;
-//                    MultipleChoice mc = (MultipleChoice) controller;
-//                    setupMCQ(row, mc);
+                /*if (row[QUESTION_TYPE_INDEX].equals("MCQ")){
+                    MultipleChoice mc = (MultipleChoice) controller;
+                    setupMCQ(row, mc);
                 }
                 else if (row[QUESTION_TYPE_INDEX].equals("MISSING_LINE")){
-                    continue;
-//                    MissingLine ml = (MissingLine) controller;
-//                    setupMissingLineQuestion(row, ml);
+                    MissingLine ml = (MissingLine) controller;
+                    setupMissingLineQuestion(row, ml);
                 }
-                else if (row[QUESTION_TYPE_INDEX].equals("CODING")){
+                else*/ if (row[QUESTION_TYPE_INDEX].equals("CODING")){
                     CodingQuestion cq = (CodingQuestion) controller;
                     setupCodingQuestion(row, cq);
                 }
@@ -153,7 +237,7 @@ public class QuestionPage {
 //        controller.setQuestion(data[QUESTION_INDEX]);
 //        controller.setCode(data[CODE_INDEX]);
 //        controller.setCorrectAnswer(data[CORRECT_ANS_INDEX]);
-        setTitle_Code_Answer(data, controller);
+        setTitle_Code_Answer_QP(data, controller);
         String s = data[INCORRECT_ANS_INDEX];
         String [] temp = s.split("\\|");                
         List<String> answers = new ArrayList(Arrays.asList(temp));
@@ -170,25 +254,27 @@ public class QuestionPage {
     
     private void setupMissingLineQuestion(String [] data, MissingLine controller){
         System.out.println("XDDDDDDDDDDDDDDDDDDDDDD");
-        setTitle_Code_Answer(data, controller);
+        setTitle_Code_Answer_QP(data, controller);
                     
     }
     
     private void setupCodingQuestion(String [] data, CodingQuestion controller){
-        controller.setQuestion(data[QUESTION_INDEX]);      
+        controller.setQuestion(data[QUESTION_TITLE_INDEX]);      
 //        setTitle_Code_Answer(data, controller);
         System.out.println(data[CORRECT_ANS_INDEX]);
         controller.getAnswer(data[CORRECT_ANS_INDEX]);
         System.out.println("CODE DATA: "+data[CODE_INDEX]);
         controller.setVariables(data[CODE_INDEX]);
-        controller.setCorrectAnswer(data[CORRECT_ANS_INDEX]);        
+        controller.setCorrectAnswer(data[CORRECT_ANS_INDEX]);  
+        controller.setQuestionPage(this);
 
     }
     
-    private void setTitle_Code_Answer(String [] data, Question controller){
-        controller.setQuestion(data[QUESTION_INDEX]);
+    private void setTitle_Code_Answer_QP(String [] data, Question controller){
+        controller.setQuestion(data[QUESTION_TITLE_INDEX]);
         controller.setCode(data[CODE_INDEX]);
-        controller.setCorrectAnswer(data[CORRECT_ANS_INDEX]);        
+        controller.setCorrectAnswer(data[CORRECT_ANS_INDEX]);    
+        controller.setQuestionPage(this);
     }
     
     public void makeQuestion(){

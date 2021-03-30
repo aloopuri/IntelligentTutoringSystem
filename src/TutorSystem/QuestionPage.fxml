@@ -55,7 +55,7 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="hintBtn" mnemonicParsing="false" prefHeight="44.0" prefWidth="125.0" text="HINT">
+                  <Button fx:id="hintBtn" mnemonicParsing="false" onAction="#getRandomQuestion" prefHeight="44.0" prefWidth="125.0" text="HINT">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -96,6 +96,24 @@
                   </Label>
                </children>
             </VBox>
+         </center>
+         <left>
+            <VBox fx:id="agentInterface1" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #97D992;" BorderPane.alignment="CENTER">
+               <children>
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="EASY" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="MEDIUM" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="HARD" />
+                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="RETRY" />
+               </children>
+               <padding>
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+               </padding>
+            </VBox>
+         </left>
+      </BorderPane>
+      <BorderPane maxHeight="400.0" maxWidth="600.0" style="-fx-background-color: #FFFFFF;" visible="false">
+         <center>
+            <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
          </center>
       </BorderPane>
    </children>

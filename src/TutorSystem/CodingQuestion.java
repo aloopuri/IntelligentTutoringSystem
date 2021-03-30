@@ -52,6 +52,9 @@ public class CodingQuestion extends Question{
             inputInterpreter.eval(userCode);
             boolean correct = compareAnswer(correctAnsInterpreter, inputInterpreter);
             System.out.println(correct);
+            if (correct){
+                System.out.println("YOU GOT IT RIGHT BOGG");
+            }
                     
                     
                     
@@ -70,9 +73,9 @@ public class CodingQuestion extends Question{
         try {
             Interpreter i = new Interpreter();
             i.setStrictJava(true);
-            System.out.println(StringEscapeUtils.escapeJava(code));
+//            System.out.println(StringEscapeUtils.escapeJava(code));
             String c = code.replace("\n", "");
-            System.out.println(StringEscapeUtils.escapeJava(c));
+//            System.out.println(StringEscapeUtils.escapeJava(c));
 //            String mainLauncher = "\nString [] mainMethodArg = new String[0];\nmain(mainMethodArg)";
 //            String codeRunner = code + mainLauncher;
             

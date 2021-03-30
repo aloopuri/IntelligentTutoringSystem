@@ -47,16 +47,13 @@ public class Homepage extends Application {
     @FXML private VBox agentInterface;
     private LearningPage learnPage;
     
-    private LoginPage loginPage;
-    private CompileString test;
-    
+    private User currentUser;
     
     @Override
     public void start(Stage stage) throws Exception {
-        URL url = getClass().getResource("Home.fxml");
+        URL url = getClass().getResource("LoginMenu.fxml");
         
         Parent root = FXMLLoader.load(url); 
-        test = new CompileString();
         
 //        test.test();
         
@@ -68,9 +65,7 @@ public class Homepage extends Application {
         stage.show();
     }
     
-    public Homepage(){
-        
-        
+    public Homepage(){      
         checkCSVExist();
     }
 
@@ -188,6 +183,10 @@ public class Homepage extends Application {
     
     private void checkLogin(){
         return;
+    }
+    
+    public void setCurrentUser(User user){
+        currentUser = user;
     }
     
     /*

@@ -29,9 +29,13 @@ public abstract class Question {
     @FXML protected Label questionCode;
 //    @FXML protected VBox container;
     
-    @FXML protected Button checkAnswerBtn;
-    
+    @FXML protected Button checkAnswerBtn;    
     protected String correctAnswer;
+    protected QuestionPage questionPage;
+    
+//    public Question(QuestionPage qp){
+//        questionPage = qp;        
+//    }
     
     public abstract void checkAnswer();
     
@@ -45,6 +49,10 @@ public abstract class Question {
     
     public void setCorrectAnswer(String ans){
         correctAnswer = ans;
+    }
+    
+    public void setQuestionPage(QuestionPage qp){
+        questionPage = qp;
     }
 
 }
