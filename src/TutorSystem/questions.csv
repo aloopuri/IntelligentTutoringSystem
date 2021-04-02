@@ -19,7 +19,7 @@ EASY,MCQ,What is the output of this code?,"public static void main(String[] args
     y = 12;
    System.out.println(x%y);
 }  ",2,Error|2.4|7,Remember what your operators are,% caluclates the modulus,Remember the modulus is the remainder. Eg 10%9 would give 1
-EASY,MCQ,Which of the following data types can store decimal numbers?,NULL,float,int|String|boolean,Try to remember what the data types can store,"the 'int' data type only stores integer numbers i.e 1,2,3",
+EASY,MCQ,Which of the following data types can store decimal numbers?,,float,int|String|boolean,Try to remember what the data types can store,"the 'int' data type only stores integer numbers i.e 1,2,3",
 EASY,MCQ,What is the output of this code?,"public static void main(String[] args) { 
     int x, y;
     x = 9;
@@ -50,3 +50,6 @@ MEDIUM,MCQ,What is the output of this code?,"public static void main(String[] ar
 HARD,CODING,"Write a program with a variable named ""x"" with value 7, and a variable ""y"" with value 5. Then multiply them together and store the result in a variable named ""z"".",x|y|z,"int x = 7;
 int y = 5;
 int z = x*y;",NULL,,,
+HARD,CODING,"Write a program with a variable ""x"" with value 17, and a variable ""y"" with value 3. Then calculate the modulus of x by y and store it in variable ""z""",x|y|z,"int x = 17;
+int y = 3;
+int z = x%y;",NULL,,,

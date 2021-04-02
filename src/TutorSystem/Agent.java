@@ -10,5 +10,15 @@ package TutorSystem;
  * @author Hassan
  */
 public class Agent {
+    private static QuestionPage questionPage;
+    private static User currentUser;
+    
+    public Agent(){
+    
+    }
+    
+    
+    
+    
     
 }

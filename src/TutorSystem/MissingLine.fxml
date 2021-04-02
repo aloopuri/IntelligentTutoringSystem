@@ -33,7 +33,7 @@
             </Label>
             <Label text="Make sure there's a space between variables and operators asisde from &quot;;&quot; at the end." textAlignment="CENTER" wrapText="true" />
             <TextField fx:id="inputText" promptText="Enter code here" />
-            <Button fx:id="checkAnswerBtn" mnemonicParsing="false" onAction="#checkAnswer" prefHeight="50.0" prefWidth="100.0" text="Check">
+            <Button fx:id="checkAnswerBtn" alignment="CENTER" mnemonicParsing="false" onAction="#checkAnswer" prefHeight="50.0" prefWidth="100.0" text="Check">
                <font>
                   <Font size="16.0" />
                </font>

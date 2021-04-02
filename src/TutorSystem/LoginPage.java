@@ -137,6 +137,7 @@ public class LoginPage /*extends Application*/{
         Parent homepageParent = loader.load();
         Homepage controller = loader.getController();
         controller.setCurrentUser(currentUser);
+        controller.setWelcomeLabel("Welcome " + usernameBox.getText() + "!");
         Scene homepageScene = new Scene(homepageParent);
         
         Stage window = (Stage)((Node)e.getSource()).getScene().getWindow();
@@ -166,9 +167,7 @@ public class LoginPage /*extends Application*/{
         CSVWriter writer = new CSVWriter(new FileWriter(file));
         writer.writeAll(allUsers);
         writer.flush();
-        writer.close();
-
-    
+        writer.close();    
     }
     
     @FXML public void registerNewUser(ActionEvent e){
@@ -189,14 +188,14 @@ public class LoginPage /*extends Application*/{
             sb.append(",");
             sb.append(password);
             sb.append(",");
-            sb.append("5");
+            sb.append("1");
             sb.append(",");
-            sb.append("5");
+            sb.append("1");
             sb.append(",");
-            sb.append("5");            
+            sb.append("1");            
             sb.append("\n");
             writer.write(sb.toString());
-            errorMessage.setText("Registered! Please presss login now.");
+            errorMessage.setText("Registered! Please press login now.");
             writer.close();
             
         } catch (IOException ex) {

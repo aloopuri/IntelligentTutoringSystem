@@ -58,7 +58,7 @@ public class QuestionPage {
     @FXML private Label header;
     
     @FXML private BorderPane borderPane;   
-    @FXML private VBox agentInterface;
+    @FXML private VBox agentRegion;
     @FXML private ImageView agentImg;
     @FXML private TextArea agentTextArea;
     
@@ -114,6 +114,7 @@ public class QuestionPage {
 //        String type = getQuestionClassType(data[QUESTION_TYPE_INDEX]);
 //        System.out.println(type);
         loadQuestion(questionParam);
+        agentTextArea.setText("Try this question");
     }
     
     private String getQuestionClassType(String type){
@@ -147,7 +148,7 @@ public class QuestionPage {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("CodingQuestion.fxml"));
         Parent pane = loader.load();
         Question controller = loader.getController();
-        createQuestion(controller);
+//        createQuestion(controller);
          
        
 //        Parent mcq = FXMLLoader.load(getClass().getResource("MultipleChoice.fxml"));
@@ -173,6 +174,11 @@ public class QuestionPage {
         }
     }
     
+    public void answeredCorrectly(){
+        agentTextArea.setText("Great Job!");
+    }
+    
+    /*
     public void createQuestion(Question controller) throws CsvValidationException{
         try {
             URL url = getClass().getResource("questions.csv");
@@ -191,7 +197,7 @@ public class QuestionPage {
 //                        System.out.println("jsdslkjdjdsjdkldkjkjsLKJSNDKSLN");
 //                        break;                
 //                }
-                /*if (row[QUESTION_TYPE_INDEX].equals("MCQ")){
+                // star if (row[QUESTION_TYPE_INDEX].equals("MCQ")){
                     MultipleChoice mc = (MultipleChoice) controller;
                     setupMCQ(row, mc);
                 }
@@ -199,7 +205,7 @@ public class QuestionPage {
                     MissingLine ml = (MissingLine) controller;
                     setupMissingLineQuestion(row, ml);
                 }
-                else*/ if (row[QUESTION_TYPE_INDEX].equals("CODING")){
+                        else // star/ if (row[QUESTION_TYPE_INDEX].equals("CODING")){
                     CodingQuestion cq = (CodingQuestion) controller;
                     setupCodingQuestion(row, cq);
                 }
@@ -231,12 +237,9 @@ public class QuestionPage {
             e.printStackTrace();
             System.out.println("oh no");
         }
-    }
+    } */
     
     private void setupMCQ(String [] data, MultipleChoice controller){
-//        controller.setQuestion(data[QUESTION_INDEX]);
-//        controller.setCode(data[CODE_INDEX]);
-//        controller.setCorrectAnswer(data[CORRECT_ANS_INDEX]);
         setTitle_Code_Answer_QP(data, controller);
         String s = data[INCORRECT_ANS_INDEX];
         String [] temp = s.split("\\|");                
@@ -266,6 +269,7 @@ public class QuestionPage {
         System.out.println("CODE DATA: "+data[CODE_INDEX]);
         controller.setVariables(data[CODE_INDEX]);
         controller.setCorrectAnswer(data[CORRECT_ANS_INDEX]);  
+        controller.setHints(data[HINT1_INDEX], data[HINT2_INDEX], data[HINT3_INDEX]);
         controller.setQuestionPage(this);
 
     }
@@ -273,17 +277,11 @@ public class QuestionPage {
     private void setTitle_Code_Answer_QP(String [] data, Question controller){
         controller.setQuestion(data[QUESTION_TITLE_INDEX]);
         controller.setCode(data[CODE_INDEX]);
-        controller.setCorrectAnswer(data[CORRECT_ANS_INDEX]);    
+        controller.setCorrectAnswer(data[CORRECT_ANS_INDEX]);
+        controller.setHints(data[HINT1_INDEX], data[HINT2_INDEX], data[HINT3_INDEX]);
         controller.setQuestionPage(this);
     }
     
-    public void makeQuestion(){
-    
-    }
-    
-    public void checkAnswer(){
-        
-    }
     
     public void openHomePage(ActionEvent e) throws IOException{
         Parent homepageParent = FXMLLoader.load(getClass().getResource("Home.fxml"));
@@ -297,14 +295,14 @@ public class QuestionPage {
     @FXML
     public void toggleAgentSidebar(ActionEvent e){
 //        agentInterface.isv
-        if (agentInterface.isVisible()){
-            agentInterface.setVisible(false);
-            agentInterface.setManaged(false);
+        if (agentRegion.isVisible()){
+            agentRegion.setVisible(false);
+            agentRegion.setManaged(false);
             hideAgentBtn.setText("Show Agent");
             return;
         }
-        agentInterface.setVisible(true);
-        agentInterface.setManaged(true);
+        agentRegion.setVisible(true);
+        agentRegion.setManaged(true);
         hideAgentBtn.setText("Hide Agent");
         
     }

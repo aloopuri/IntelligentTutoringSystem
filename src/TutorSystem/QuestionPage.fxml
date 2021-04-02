@@ -27,7 +27,7 @@
             </HBox>
          </top>
          <right>
-            <VBox fx:id="agentInterface" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #97D992;" BorderPane.alignment="CENTER">
+            <VBox fx:id="agentRegion" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #97D992;" BorderPane.alignment="CENTER">
                <children>
                   <ImageView fx:id="agentImg" fitHeight="216.0" fitWidth="218.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -55,12 +55,12 @@
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="hintBtn" mnemonicParsing="false" onAction="#getRandomQuestion" prefHeight="44.0" prefWidth="125.0" text="HINT">
+                  <Button fx:id="hintBtn" mnemonicParsing="false" prefHeight="44.0" prefWidth="125.0" text="HINT">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="skipBtn" mnemonicParsing="false" prefHeight="44.0" prefWidth="125.0" text="Skip">
+                  <Button fx:id="skipBtn" mnemonicParsing="false" onAction="#getRandomQuestion" prefHeight="44.0" prefWidth="125.0" text="Skip">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -84,12 +84,7 @@
                         <Font size="30.0" />
                      </font>
                   </Label>
-                  <Label text="Actual question">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <Label text="answers, Beanshell?">
+                  <Label text="question">
                      <font>
                         <Font size="30.0" />
                      </font>

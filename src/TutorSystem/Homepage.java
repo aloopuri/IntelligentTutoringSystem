@@ -27,6 +27,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
@@ -40,14 +41,15 @@ public class Homepage extends Application {
     
 //    private ArrayList<Pane> panels;
     @FXML private Pane currentPanel;    
+    @FXML private Label welcomeLabel;
     @FXML private Button statementsBtn;
     @FXML private Button cdtnStatementBtn;
     @FXML private Button loopsBtn;  
     @FXML private Button questionBtn;
     @FXML private VBox agentInterface;
-    private LearningPage learnPage;
+//    private LearningPage learnPage;
     
-    private User currentUser;
+    private static User currentUser;
     
     @Override
     public void start(Stage stage) throws Exception {
@@ -65,7 +67,7 @@ public class Homepage extends Application {
         stage.show();
     }
     
-    public Homepage(){      
+    public Homepage(){ 
         checkCSVExist();
     }
 
@@ -75,7 +77,7 @@ public class Homepage extends Application {
 
     }
     
-    @FXML
+    /*@FXML
     public void testInterpreter() throws URISyntaxException, FileNotFoundException, IOException, CsvValidationException{
         Interpreter i = new Interpreter();
         i.setStrictJava(true);
@@ -117,22 +119,22 @@ public class Homepage extends Application {
 //        java bsh.Console;
         
         }
-    }
+    }*/
     
-    @FXML
-    public void loadLearningPage(ActionEvent e){
-        if (e.getSource() == statementsBtn){
-            System.out.println("xdd");
-//            currentPanel = learnPage.getPane();
-            
-        }        
-        else if (e.getSource() == cdtnStatementBtn){
-            System.out.println("cdtn");
-        }
-        else if (e.getSource() == loopsBtn){
-            System.out.println("loops");
-        }
-    }
+//    @FXML
+//    public void loadLearningPage(ActionEvent e){
+//        if (e.getSource() == statementsBtn){
+//            System.out.println("xdd");
+////            currentPanel = learnPage.getPane();
+//            
+//        }        
+//        else if (e.getSource() == cdtnStatementBtn){
+//            System.out.println("cdtn");
+//        }
+//        else if (e.getSource() == loopsBtn){
+//            System.out.println("loops");
+//        }
+//    }
     
     @FXML
     public void hideAgentSidebar(ActionEvent e){
@@ -161,6 +163,13 @@ public class Homepage extends Application {
         changePage(e, scene);
     }
     
+    @FXML
+    public void logout(ActionEvent e) throws IOException{
+        currentUser = null;
+        Scene scene = loadPage("LoginMenu");
+        changePage(e, scene);
+    }
+    
     public Scene loadPage(String pageName) throws IOException{
         Parent pageParent = FXMLLoader.load(getClass().getResource(pageName + ".fxml"));
         Scene pageScene = new Scene(pageParent);
@@ -177,8 +186,16 @@ public class Homepage extends Application {
         window.show();
     }
     
-    private void openLoginPage(){
-        
+    @FXML
+    public void openSelfReport(ActionEvent e) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SelfReport.fxml"));
+        Parent root = loader.load();
+        SelfReportController controller = (SelfReportController) loader.getController();
+        controller.setCurrentuser(currentUser);;
+        Stage stage = new Stage();    
+        stage.setTitle("Self-Report");
+        stage.setScene(new Scene(root, 600, 450));
+        stage.show();
     }
     
     private void checkLogin(){
@@ -188,6 +205,17 @@ public class Homepage extends Application {
     public void setCurrentUser(User user){
         currentUser = user;
     }
+    
+    public void setWelcomeLabel(String text){
+        welcomeLabel.setText(text);
+    }
+    
+    @FXML
+    public void printUser(){
+        System.out.println(currentUser.getUsername());
+    }
+    
+    
     
     /*
      * This checks to see if there is a CSV which contains user data

@@ -10,20 +10,19 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TutorSystem.LoginPage">
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="269.0" prefWidth="568.0" spacing="20.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="header" alignment="CENTER" text="Please enter your Username and Password&#10;(DO NOT USE YOUR REAL PASSWORDS)" textAlignment="CENTER">
+            <Label fx:id="header" alignment="CENTER" text="Please enter your Username and Password" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="24.0" />
                </font>
             </Label>
             <TextField fx:id="usernameBox" prefHeight="45.0" prefWidth="250.0" promptText="Username" />
             <PasswordField fx:id="passwordBox" prefHeight="45.0" prefWidth="250.0" promptText="Password" />
-            <Label fx:id="errorMessage" text="Label" />
-            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
+            <Label fx:id="errorMessage" />
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0">
                <children>
                   <Button fx:id="loginButton" mnemonicParsing="false" onAction="#checkLogin" prefHeight="40.0" prefWidth="100.0" text="Login" textAlignment="CENTER" />
                   <Button fx:id="registerButton" mnemonicParsing="false" onAction="#registerNewUser" prefHeight="40.0" prefWidth="100.0" text="Register" textAlignment="CENTER" />

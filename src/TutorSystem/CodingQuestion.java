@@ -53,7 +53,8 @@ public class CodingQuestion extends Question{
             boolean correct = compareAnswer(correctAnsInterpreter, inputInterpreter);
             System.out.println(correct);
             if (correct){
-                System.out.println("YOU GOT IT RIGHT BOGG");
+                answerCorrect();
+//                System.out.println("YOU GOT IT RIGHT BOGG");
             }
                     
                     

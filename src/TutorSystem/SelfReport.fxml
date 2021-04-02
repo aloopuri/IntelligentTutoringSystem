@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TutorSystem.SelfReportController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TutorSystem.SelfReportController">
    <top>
       <HBox alignment="CENTER" prefHeight="69.0" prefWidth="1024.0" style="-fx-background-color: #2ad14b;" BorderPane.alignment="CENTER">
          <children>
@@ -21,33 +23,72 @@
       </HBox>
    </top>
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="107.0" layoutY="80.0" text="How confident are you feeling right now ?">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Label layoutX="108.0" layoutY="205.0" text="How interested are you feeling right now?">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <RadioButton layoutX="129.0" layoutY="127.0" mnemonicParsing="false" textAlignment="CENTER" />
-            <RadioButton layoutX="188.0" layoutY="127.0" mnemonicParsing="false" textAlignment="CENTER" />
-            <RadioButton layoutX="245.0" layoutY="127.0" mnemonicParsing="false" textAlignment="CENTER" />
-            <RadioButton layoutX="303.0" layoutY="127.0" mnemonicParsing="false" textAlignment="CENTER" />
-            <RadioButton layoutX="359.0" layoutY="127.0" mnemonicParsing="false" textAlignment="CENTER" />
-            <Label layoutX="94.0" layoutY="154.0" text="Not confident at all" />
-            <Label layoutX="353.0" layoutY="154.0" text="Very confident" />
-            <RadioButton layoutX="128.0" layoutY="256.0" mnemonicParsing="false" textAlignment="CENTER" />
-            <RadioButton layoutX="187.0" layoutY="256.0" mnemonicParsing="false" textAlignment="CENTER" />
-            <RadioButton layoutX="244.0" layoutY="256.0" mnemonicParsing="false" textAlignment="CENTER" />
-            <RadioButton layoutX="302.0" layoutY="256.0" mnemonicParsing="false" textAlignment="CENTER" />
-            <RadioButton layoutX="358.0" layoutY="256.0" mnemonicParsing="false" textAlignment="CENTER" />
-            <Label layoutX="93.0" layoutY="283.0" text="Not interested at all" />
-            <Label layoutX="352.0" layoutY="283.0" text="Very interested" />
+            <VBox alignment="TOP_CENTER" spacing="25.0">
+               <children>
+                  <Label text="How confident are you feeling right now ?">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" spacing="50.0">
+                     <children>
+                        <RadioButton mnemonicParsing="false" text="1" textAlignment="CENTER">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="confidenceGroup" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" text="2" textAlignment="CENTER" toggleGroup="$confidenceGroup" />
+                        <RadioButton mnemonicParsing="false" text="3" textAlignment="CENTER" toggleGroup="$confidenceGroup" />
+                        <RadioButton mnemonicParsing="false" text="4" textAlignment="CENTER" toggleGroup="$confidenceGroup" />
+                        <RadioButton mnemonicParsing="false" text="5" textAlignment="CENTER" toggleGroup="$confidenceGroup" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_CENTER" spacing="200.0">
+                     <children>
+                        <Label text="Not confident at all" />
+                        <Label text="Very confident" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </VBox>
+            <VBox alignment="TOP_CENTER" spacing="25.0">
+               <children>
+                  <Label text="How interested are you feeling right now ?">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" spacing="50.0">
+                     <children>
+                        <RadioButton mnemonicParsing="false" text="1" textAlignment="CENTER">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="effortGroup" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" text="2" textAlignment="CENTER" toggleGroup="$effortGroup" />
+                        <RadioButton mnemonicParsing="false" text="3" textAlignment="CENTER" toggleGroup="$effortGroup" />
+                        <RadioButton mnemonicParsing="false" text="4" textAlignment="CENTER" toggleGroup="$effortGroup" />
+                        <RadioButton mnemonicParsing="false" text="5" textAlignment="CENTER" toggleGroup="$effortGroup" />
+                     </children>
+                  </HBox>
+                  <HBox alignment="TOP_CENTER" spacing="200.0">
+                     <children>
+                        <Label text="Not interested at all" />
+                        <Label text="Very interested" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets top="20.0" />
+               </padding>
+            </VBox>
+            <Button fx:id="submitButton" mnemonicParsing="false" onAction="#closeSelfReportWindow" prefHeight="40.0" prefWidth="75.0" text="Submit" />
          </children>
-      </AnchorPane>
+      </VBox>
    </center>
 </BorderPane>

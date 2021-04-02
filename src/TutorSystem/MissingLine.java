@@ -20,7 +20,8 @@ public class MissingLine extends Question{
     public void checkAnswer(){
         String ans = inputText.getText();
         if (ans.equals(correctAnswer)){
-            System.out.println("Bogchamp");
+//            System.out.println("Bogchamp");
+            answerCorrect();
         }
         
     }

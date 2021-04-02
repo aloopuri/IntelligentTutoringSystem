@@ -32,6 +32,9 @@ public abstract class Question {
     @FXML protected Button checkAnswerBtn;    
     protected String correctAnswer;
     protected QuestionPage questionPage;
+    protected String hint1;
+    protected String hint2;
+    protected String hint3;
     
 //    public Question(QuestionPage qp){
 //        questionPage = qp;        
@@ -54,97 +57,15 @@ public abstract class Question {
     public void setQuestionPage(QuestionPage qp){
         questionPage = qp;
     }
+    
+    public void setHints(String hint1, String hint2, String hint3){
+        this.hint1 = hint1;
+        this.hint2 = hint2;
+        this.hint3 = hint3;
+    }
+    
+    public void answerCorrect(){
+        questionPage.answeredCorrectly();
+    }
 
 }
-
-
-
-
-//public class Question {
-//    @FXML private Label question;
-//    @FXML private Label questionCode;
-//    
-//    @FXML private RadioButton option1;
-//    @FXML private RadioButton option2;
-//    @FXML private RadioButton option3;
-//    @FXML private RadioButton option4;
-//    @FXML private ToggleGroup toggleGroup;
-//
-//    @FXML private Button checkAnswerBtn;
-//    
-//    private String correctAnswer;
-//    
-//    
-//    public Question(){
-//
-//    }
-//    
-//    public void getQuestion() throws CsvValidationException{
-//        try {
-//            URL url = getClass().getResource("questions.csv");
-//            CSVReader reader = new CSVReader(new FileReader(new File(url.toURI()).getAbsolutePath()));
-//            String [] row;
-//            reader.readNext(); // Skips heading rows
-//            while ((row = reader.readNext()) != null){
-//                System.out.println(row);
-////                if (row[0].equals(username) && row[1].equals(password)){
-////                    System.out.println("Pog?");
-////                }
-//            }
-//                    
-//        }catch(IOException | NullPointerException | URISyntaxException e){
-//            System.out.println("Something went wrong");
-//            e.printStackTrace();            
-//        }
-//    }
-//    
-//    @FXML
-//    public void checkAnswer(){
-//        RadioButton selectedAnswer = (RadioButton) toggleGroup.getSelectedToggle();
-//        if (selectedAnswer == null){ 
-//            return;
-//        }
-//        String answer = selectedAnswer.getText();
-//        if (answer.equals(correctAnswer)){
-//            question.setText("WOWO");
-//        }
-//        else {
-//            selectedAnswer.setDisable(true);
-//        }
-//    }
-//    
-//    public void setQuestion(String questionText){
-//        this.question.setText(questionText);
-//    }
-//    
-//    public void setCode(String codeText){
-//        questionCode.setText(codeText);                
-//    }
-//    
-//    public void setMultipleChoiceBtnText(String [] data){
-//        
-//    }
-//    
-//    public void setCorrectAnswer(String ans){
-//        correctAnswer = ans;
-//    }
-//    
-//    public void setOption1Text(String text){
-//        option1.setText(text);
-//    }
-//    
-//    public void setOption2Text(String text){
-//        option2.setText(text);
-//    }
-//    
-//    public void setOption3Text(String text){
-//        option3.setText(text);
-//    }
-//    
-//    public void setOption4Text(String text){
-//        option4.setText(text);
-//    }
-//    
-//    
-//    
-//}

@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.paint.Color;
 
 /**
  *
@@ -69,21 +70,16 @@ public class MultipleChoice extends Question{
         }
         String answer = selectedAnswer.getText();
         if (answer.equals(correctAnswer)){
-            question.setText("WOWO");
+            selectedAnswer.setTextFill(Color.rgb(104, 209, 6));
+//            question.setText("WOWO");
+            answerCorrect();
         }
         else {
             selectedAnswer.setDisable(true);
+            selectedAnswer.setTextFill(Color.RED);
+
         }
     }
-    
-    
-    public void setMultipleChoiceBtnText(String [] data){
-        
-    }
-    
-//    public void setCorrectAnswer(String ans){
-//        correctAnswer = ans;
-//    }
     
     public void setOption1Text(String text){
         option1.setText(text);
