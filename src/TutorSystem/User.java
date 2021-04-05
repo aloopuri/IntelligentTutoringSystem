@@ -105,8 +105,8 @@ public class User {
     
     private int withinBound(int num){
         int n = num;
-        if ((n == 10) || (n == 1)){ return num;}
-        else if (n > 10){n = 10;}
+        if ((n == 20) || (n == 1)){ return num;}
+        else if (n > 20){n = 20;}
         else if (n < 1){n = 1;}
         return n;
     }

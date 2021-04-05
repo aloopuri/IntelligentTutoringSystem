@@ -3,7 +3,7 @@ EXAMPLE,MCQ,"Fill in the BLANK
 Which of the following is used to print on a new line?","public static void main(String[] args) { 
     BLANK (""Hello World""); 
 } 
- ",System.out.println,System.println|print.out|System.printout.ln,It begins with System,you need to output to the console,
+ ",System.out.println,System.println|print.out|System.printout.ln,It begins with System,You need to output and print a new line to the console. ,
 EASY,MCQ,What is the output of this code?,"public static void main(String[] args) { 
     int x = 5;
 }  ",no output,5|x|args,What is happening exactly in the main function?,Try to remember how you output to the console,Code is outputted to the system using System.out.prinln. So what is happening here exactly
@@ -11,45 +11,45 @@ EASY,MCQ,What is the output of this code?,"public static void main(String[] args
     int x, y;
     x = 3;
     y = 4;
-   System.out.println(x*y);
+    System.out.println(x*y);
 }  ",12,Error|34|7,Remember what your operators are,* does multiplication,output is 3 mutiplied by 4
 EASY,MCQ,What is the output of this code?,"public static void main(String[] args) { 
     int x, y;
     x = 5;
     y = 12;
-   System.out.println(x%y);
+    System.out.println(x%y);
 }  ",2,Error|2.4|7,Remember what your operators are,% caluclates the modulus,Remember the modulus is the remainder. Eg 10%9 would give 1
 EASY,MCQ,Which of the following data types can store decimal numbers?,,float,int|String|boolean,Try to remember what the data types can store,"the 'int' data type only stores integer numbers i.e 1,2,3",
 EASY,MCQ,What is the output of this code?,"public static void main(String[] args) { 
     int x, y;
     x = 9;
     y = 10;
-   System.out.println(x+y+2);
+    System.out.println(x+y+2);
 }  ",21,xy2|192|9102,what data types are being added together?,String variables only concatenate,x and y are int variables so you just add them together
 MEDIUM,MCQ,What is the output of this code?,"public static void main(String[] args) { 
     String x, y;
     x = ""abc"";
     y = ""10"";
-   System.out.println(x+y);
-}  ","""abc10""","xy|""abc"",""10""|Error",Remember what string concatenation is,,
+    System.out.println(x+y);
+}  ","""abc10""","xy|""abc"",""10""|Error",Remember what string concatenation is,They are combined to form one string,
 MEDIUM,MISSING_LINE,"Create a variable named ""number"" with the value 7 assigned to it","public static void main(String[] args) { 
-   // COMPLETE THIS LINE
+    // COMPLETE THIS LINE
     System.out.println(number);
-}  ",int number = 7;,NULL,,,
+}  ",int number = 7;,NULL,Integer number statements start with 'int',the structure of a statement is '<type> name = data;',
 MEDIUM,MISSING_LINE,"Create a variable named ""vehicle"" with and assign ""car"" to it","public static void main(String[] args) { 
-   // COMPLETE THIS LINE
+    // COMPLETE THIS LINE
     System.out.println(vehicle);
-}  ","String vehicle = ""car"";",NULL,,,
+}  ","String vehicle = ""car"";",NULL,creating a new string variable starts with 'String',the structure of a statement is '<type> name = data;',
 MEDIUM,MCQ,What is the output of this code?,"public static void main(String[] args) { 
     int x, y;
     x = 5;
     y = 3;
     x*y;
-   System.out.println(x+y);
-}  ",8,Error|15|53,,,
+    System.out.println(x+y);
+}  ",8,"8, 15|15|53",you can't output code with just an operation,Only one number is outputted,
 HARD,CODING,"Write a program with a variable named ""x"" with value 7, and a variable ""y"" with value 5. Then multiply them together and store the result in a variable named ""z"".",x|y|z,"int x = 7;
 int y = 5;
-int z = x*y;",NULL,,,
+int z = x*y;",NULL,Remember to add the type when intialising a variable,int var = number' is how you intialise a variable ,
 HARD,CODING,"Write a program with a variable ""x"" with value 17, and a variable ""y"" with value 3. Then calculate the modulus of x by y and store it in variable ""z""",x|y|z,"int x = 17;
 int y = 3;
-int z = x%y;",NULL,,,
+int z = x%y;",NULL,Remember to add the type when intialising a variable,int var = number' is how you intialise a variable ,The modulus is calculated using '%'

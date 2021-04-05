@@ -25,14 +25,13 @@ public class CodingQuestion extends Question{
     
     private List<String> variables;
     private Interpreter correctAnsInterpreter;
-//    private Interpreter inputInterpreter;
+    private int chances;
     
     public CodingQuestion(){
         correctAnsInterpreter = new Interpreter();
-//        inputInterpreter = new Interpreter();
         correctAnsInterpreter.setStrictJava(true);
-//        inputInterpreter.setStrictJava(true);
         variables = new ArrayList();
+        chances = 3;
 //        i.set
         
     }
@@ -55,6 +54,12 @@ public class CodingQuestion extends Question{
             if (correct){
                 answerCorrect();
 //                System.out.println("YOU GOT IT RIGHT BOGG");
+            }
+            else {
+                chances--;
+                if (chances == 0){
+                    // do the hint stuff and then perhaps reset chances
+                }
             }
                     
                     

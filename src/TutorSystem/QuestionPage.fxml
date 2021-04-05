@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TutorSystem.QuestionPage">
+<StackPane fx:id="stackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TutorSystem.QuestionPage">
    <children>
       <BorderPane fx:id="borderPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="768.0" prefWidth="1024.0">
          <top>
@@ -27,17 +27,23 @@
             </HBox>
          </top>
          <right>
-            <VBox fx:id="agentRegion" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #97D992;" BorderPane.alignment="CENTER">
+            <VBox fx:id="agentRegion" alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #97D992;" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fx:id="agentImg" fitHeight="216.0" fitWidth="218.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@images/EZ%20agent.png" />
-                     </image>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </ImageView>
-                  <TextArea fx:id="agentTextArea" editable="false" prefHeight="298.0" prefWidth="249.0" text="This is where the agent's messages go" wrapText="true" />
+                  <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
+                     <children>
+                        <ImageView fx:id="clapGif" fitHeight="100.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/clap.gif" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="agentImg" fitHeight="216.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@images/default.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </HBox>
+                  <TextArea fx:id="agentTextArea" editable="false" prefHeight="298.0" prefWidth="249.0" text="Lets have some fun with Java!" wrapText="true" />
                </children>
             </VBox>
          </right>
@@ -50,17 +56,17 @@
                      </font>
                   </Button>
                   <HBox prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="syntaxBtn" mnemonicParsing="false" onAction="#loadQuestion" prefHeight="44.0" prefWidth="125.0" text="Syntax">
+                  <Button fx:id="syntaxBtn" mnemonicParsing="false" onAction="#btnPressed" prefHeight="44.0" prefWidth="125.0" text="Syntax">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="hintBtn" mnemonicParsing="false" prefHeight="44.0" prefWidth="125.0" text="HINT">
+                  <Button fx:id="hintBtn" mnemonicParsing="false" onAction="#giveHint" prefHeight="44.0" prefWidth="125.0" text="HINT">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Button>
-                  <Button fx:id="skipBtn" mnemonicParsing="false" onAction="#getRandomQuestion" prefHeight="44.0" prefWidth="125.0" text="Skip">
+                  <Button fx:id="skipBtn" mnemonicParsing="false" onAction="#getRandomQuestion" prefHeight="44.0" text="New Question">
                      <font>
                         <Font size="20.0" />
                      </font>
@@ -106,9 +112,26 @@
             </VBox>
          </left>
       </BorderPane>
-      <BorderPane maxHeight="400.0" maxWidth="600.0" style="-fx-background-color: #FFFFFF;" visible="false">
+      <BorderPane maxHeight="250.0" maxWidth="500.0" opacity="0.8" style="-fx-background-color: #97D992;" visible="false">
          <center>
-            <Button mnemonicParsing="false" text="Button" BorderPane.alignment="CENTER" />
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Would you like to get a hint?" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#giveHint" prefHeight="40.0" prefWidth="80.0" text="YES" />
+                        <Button mnemonicParsing="false" onAction="#hideSuggestHint" prefHeight="40.0" prefWidth="80.0" text="NO" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+            </VBox>
          </center>
       </BorderPane>
    </children>

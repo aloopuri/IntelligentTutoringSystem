@@ -13,11 +13,11 @@
 
 <BorderPane fx:id="currentPanel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TutorSystem.Homepage">
    <right>
-      <VBox fx:id="agentInterface" prefHeight="200.0" prefWidth="100.0" style="-fx-background-color: #97D992;" BorderPane.alignment="CENTER">
+      <VBox fx:id="agentInterface" alignment="TOP_RIGHT" prefHeight="200.0" prefWidth="250.0" style="-fx-background-color: #97D992;" BorderPane.alignment="CENTER">
          <children>
             <ImageView fitHeight="216.0" fitWidth="218.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@images/EZ%20agent.png" />
+                  <Image url="@images/default.png" />
                </image>
                <VBox.margin>
                   <Insets />

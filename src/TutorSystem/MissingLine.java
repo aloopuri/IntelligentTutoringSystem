@@ -23,6 +23,9 @@ public class MissingLine extends Question{
 //            System.out.println("Bogchamp");
             answerCorrect();
         }
+        else {
+        
+        }
         
     }
     

@@ -63,6 +63,7 @@ public class Homepage extends Application {
 //        learnPage = new LearningPage();
         
         Scene scene = new Scene(root, 1024, 786);
+        stage.setTitle("Intelligent Java Tutoring System");
         stage.setScene(scene);
         stage.show();
     }
@@ -159,7 +160,13 @@ public class Homepage extends Application {
     
     @FXML
     public void openQuestionPage(ActionEvent e) throws IOException{
-        Scene scene = loadPage("QuestionPage");
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("QuestionPage.fxml"));
+        Parent root = loader.load();
+        QuestionPage controller = (QuestionPage) loader.getController();
+        controller.setUser(currentUser);
+        controller.toggleClap();
+//        Scene scene = loadPage("QuestionPage");
+        Scene scene = new Scene(root);
         changePage(e, scene);
     }
     
@@ -198,12 +205,10 @@ public class Homepage extends Application {
         stage.show();
     }
     
-    private void checkLogin(){
-        return;
-    }
     
     public void setCurrentUser(User user){
         currentUser = user;
+        System.out.println(currentUser.getConfidence() + "wowowow");
     }
     
     public void setWelcomeLabel(String text){
