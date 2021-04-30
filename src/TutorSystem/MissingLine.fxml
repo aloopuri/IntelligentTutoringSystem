@@ -31,7 +31,7 @@
                   <Font name="Courier New" size="14.0" />
                </font>
             </Label>
-            <Label text="Make sure there's a space between variables and operators asisde from &quot;;&quot; at the end." textAlignment="CENTER" wrapText="true" />
+            <Label maxHeight="1.7976931348623157E308" minHeight="-Infinity" text="Make sure there's a space between variables and operators aside from &quot;;&quot; at the end. And please use speech marks(&quot;&quot;) if required" textAlignment="CENTER" wrapText="true" VBox.vgrow="ALWAYS" />
             <TextField fx:id="inputText" promptText="Enter code here" />
             <Button fx:id="checkAnswerBtn" alignment="CENTER" mnemonicParsing="false" onAction="#checkAnswer" prefHeight="50.0" prefWidth="100.0" text="Check">
                <font>

@@ -6,6 +6,7 @@
 package TutorSystem;
 
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 import java.io.File;
 import java.io.FileInputStream;
@@ -35,6 +36,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -45,10 +47,6 @@ import javafx.stage.Stage;
  */
 public class QuestionPage {
     
-//    enum QuestionType{
-//        MCQ, MISSING_LINE, CODING;
-//    }
-    
     private final static int DIFFICULTY_INDEX = 0;
     private final static int QUESTION_TYPE_INDEX = 1;
     private final static int QUESTION_TITLE_INDEX = 2;
@@ -57,19 +55,15 @@ public class QuestionPage {
     private final static int INCORRECT_ANS_INDEX = 5;
     private final static int HINT1_INDEX = 6;
     private final static int HINT2_INDEX = 7;
-    private final static int HINT3_INDEX = 8;
+    private final static int HINT3_INDEX = 8;  
     
-    
-    
-    @FXML private Label header;
-    
+    @FXML private Label header;    
     @FXML private StackPane stackPane;
     @FXML private BorderPane borderPane;   
     @FXML private VBox agentRegion;
     @FXML private ImageView agentImg;
     @FXML private ImageView clapGif;
-    @FXML private TextArea agentTextArea;
-    
+    @FXML private TextArea agentTextArea;    
     @FXML private Button hideAgentBtn;    
     @FXML private Button returnHomeBtn;
     @FXML private Button syntaxBtn;
@@ -78,22 +72,18 @@ public class QuestionPage {
     
     private List<String []> allQuestions;
     private static User currentUser;
-    private static Question currentQuestion; // or make it String []
+    private static Question currentQuestion;
     private Agent agent;
-    
-    private List<Timer> timers;
-    
     private boolean pressed = false;
     private boolean showingHint;
     private boolean hintUsed;
-    
+    private boolean stopMakeTimers;
+    private List<Timer> timers;
     private long startTime;
-    
-//    private Question question;
-
+    private long hintAbuseTimer;
+    private String questionDiff;
     
     public QuestionPage(){
-//        question = new MultipleChoice();
         allQuestions = new ArrayList();
         timers = new ArrayList();
         try {
@@ -104,8 +94,11 @@ public class QuestionPage {
         agent = new Agent(this, currentUser);
 //        backgroundTimer(5000);
 //        checkPeriodically();
+        startTime = System.currentTimeMillis();
         showingHint = false;
         hintUsed = false;
+        stopMakeTimers = false;
+        questionDiff = "EASY";
 //        clapGif.setVisible(false);
 //        clapGif.setManaged(false);
     }
@@ -154,24 +147,28 @@ public class QuestionPage {
     }
     
     private boolean isHintAbuse(){
+        if (currentQuestion.isAllHintsUsed()) {
+            agentTextArea.setText("No more hints left. \n" + currentQuestion.getHintMessage());
+        }
         long curTime = System.currentTimeMillis();
         
-        if (curTime - startTime  <= 6000) {
-            startTime = curTime;    // Stops them from waiting only 6 seconds
+        if (curTime - hintAbuseTimer  <= 6000) {
+            hintAbuseTimer = curTime;    // Stops them from waiting only 6 seconds
             return true;
         }
         return false;
     }
     
     private void checkHintAvoidance(){
+        if (stopMakeTimers) { return;}
         String diff = currentQuestion.getDifficulty();
         switch (diff) {
             case "EASY":
                 System.out.println("QUESTION AMARK?");
-                hintAvoidanceTimer(5000);
+                hintAvoidanceTimer(35000);
                 break;
             case "MEDIUM":
-                hintAvoidanceTimer(40000);
+                hintAvoidanceTimer(45000);
                 break;
             case "HARD":
                 hintAvoidanceTimer(55000);
@@ -190,10 +187,11 @@ public class QuestionPage {
                 
             @Override
             public void run() {
-                
-                if (tick  == 1){
+                if (tick  == 1){     
                     System.out.println("runned");
-                    dealWithHintAvoid(agent.giveHelp());                    
+                    dealWithHintAvoid(agent.giveHelp()); 
+                    agent.addConfidence(-1);
+                    agent.addEffort(1);
                     timer.cancel();
                     timers.remove(timer);
                 }  
@@ -203,12 +201,19 @@ public class QuestionPage {
     }
     
     private void dealWithHintAvoid(boolean help){
+        if (currentQuestion.isAllHintsUsed()) { 
+            String msg = "Remember, use the hints to your advantage";
+//            System.out.println(msg);
+            stopMakeTimers = true;
+            showMessageWithHint(msg);
+            
+            return;
+        }
         if (help){
             String msg = "You appear to be struggling. Remember, don't be "
                 + "afraid to ask for help if you need it.";
             showMessageWithHint(msg);
-//            agentTextArea.setText("You appear to be struggling, Don't be afraid"
-//                + " to ask for help if you need it\n" + currentQuestion.getHintMessage());
+
             showingHint = true;
         }
         else {
@@ -217,19 +222,18 @@ public class QuestionPage {
     }
     
     public void stopAllTimers(){
-        System.out.println(timers.size() + " SIZEEEEEEEEEEEEEEEEEEEEEEE");
         for (Timer timer : timers){
             timer.cancel();            
         }
         timers.clear();
-        System.out.println("BURRRRRRRRRRRRRRRRRRRRRRRRRRRRh");
         
     }
     
     @FXML
-    public void btnPressed(){        
-        pressed = true;
-        hideSuggestHint();
+    public void showSyntax(){  
+        stackPane.getChildren().get(3).setVisible(true);
+        borderPane.setDisable(true);
+        agent.addIndependence(-1);
     }
     
     public void setUser(User user){
@@ -239,39 +243,67 @@ public class QuestionPage {
     }
     
     private void suggestHint(){
+        agent.addIndependence(-1);
         stackPane.getChildren().get(1).setVisible(true);
+        borderPane.setDisable(true);
     }
     
     public void hideSuggestHint(){
-        System.out.println(stackPane.getChildren().size());
         stackPane.getChildren().get(1).setVisible(false);
         showAgentMessage("Don't be afraid to ask for hints if you're struggling");
-//        agentTextArea.setText("Don't be afraid to ask for hints if you're struggling");
+        borderPane.setDisable(false);
+        checkHintAvoidance();
     }
     
     @FXML
     public void giveHint(){
         if (currentQuestion == null){ return;}
-        if (stackPane.getChildren().get(1).isVisible()){ 
-            stackPane.getChildren().get(1).setVisible(false);
+        if (stackPane.getChildren().get(1).isVisible()){ // checks if the help box is showing
+//            stackPane.getChildren().get(1).setVisible(false);
+//            borderPane.setDisable(false);
+            hideAllPopupMessages();
         }
-        if (isHintAbuse()){
-            agentTextArea.setText("Instantly using hints won't help inprove your java skills. "
-                    + "You should try attempting the question first.");
+        if (currentQuestion.isAllHintsUsed()){
+            agentTextArea.setText("No more hints left. You can solve this!\n" 
+                    + currentQuestion.getCurrentHintsGiven());
             return;
         }
+        
+        if (isHintAbuse() && !currentQuestion.isAllHintsUsed()){
+            String txt = "So let's try solving this problem now";
+            agentTextArea.setText("Instantly using hints won't help inprove"
+                + " your java skills. You should try solving the question"
+                + " and only ask for help when stuck");
+            String dir = getClass().getResource("images/helpAbuse.png").toString();
+            showingHint = false;
+            agent.addEffort(-1);
+            timedAgentImage(dir, 5000, txt);
+            stopAllTimers();
+            checkHintAvoidance();  
+            hintAbuseTimer = System.currentTimeMillis();
+            return;
+        }
+        
+//        if (currentUser.getIndependence()>11){
+//            // give hint if really need it
+//        }
+        
         String hint = currentQuestion.getCurrentHintsGiven();
         if (hint.equals("") && !showingHint){
             currentQuestion.getCurrentHintsGiven();
         }
-        currentQuestion.didAction();       
+//        currentQuestion.didAction();       
         
         hint = currentQuestion.getHintMessage();
         if (hint.equals("")) { return;}
 //        String oldText = agentTextArea.getText() + "\n";
         agentTextArea.setText(hint);
+        stopAllTimers();
+        checkHintAvoidance();
         showingHint = true;
         hintUsed = true;
+        hintAbuseTimer = System.currentTimeMillis();
+        agent.addIndependence(-1);
     }
     
     public void showAgentMessage(String text){
@@ -279,17 +311,28 @@ public class QuestionPage {
         showingHint = false;
     }
     
+    /**
+     * Displays a message in the Agent text area followed by 
+     * hints
+     * @param message 
+     */
     public void showMessageWithHint(String message){
         agentTextArea.setText(message + "\n" + currentQuestion.getHintMessage());
+        String dir = getClass().getResource("images/think.png").toString();
+        timedAgentImage(dir, 5000, agentTextArea.getText());
+//        changeAgentImage("think");
+        checkHintAvoidance();
         showingHint = true;
-        hintUsed = true;
-        
+        hintUsed = true;        
     }
     
     private void resetAllVariables(){
         stopAllTimers();
+        agent.resetVars();
+        setDefaultAgent();
         hintUsed = false;
         showingHint = false;
+        stopMakeTimers = false;
     }
     
     private void getQuestionData() throws CsvValidationException{
@@ -306,6 +349,93 @@ public class QuestionPage {
 //            Logger.getLogger(QuestionPage.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    /**
+     * Gets a new question of a certain difficulty based on the 
+     * user's confidence level
+     * @throws IOException
+     * @throws CsvValidationException 
+     */
+    @FXML
+    public void getNewQuestion() throws IOException, CsvValidationException{
+        Pane center = (Pane) borderPane.getCenter();
+        if (center instanceof VBox){
+            // Initially choose a question difficulty based on avg of 
+            // user variables
+            int avg = (currentUser.getConfidence() +currentUser.getEffort()
+                    + currentUser.getIndependence())/3;
+            if (avg < 7){ questionDiff = "EASY";}
+            else if (avg >=7 && avg <=14) { questionDiff = "MEDIUM";}
+            else if (avg > 14){ questionDiff = "HARD";}
+        }
+        else if (currentQuestion.questionAnswered()){}
+        else if (System.currentTimeMillis() -  startTime > 15000) {
+            System.out.println(System.currentTimeMillis() -  startTime);
+            agent.givenUp();
+            showGiveUpPane();
+            return;
+        }
+//        String diff = currentQuestion.getDifficulty();
+        if (agent.getStreak() >= 2){ //increase difficulty  
+            agent.resetStreak();
+            switch (questionDiff) {
+                case "EASY":
+                    questionDiff = "MEDIUM";
+                    break;
+                case "MEDIUM":
+                    questionDiff = "HARD";
+                    break;
+//                case "HARD":
+//                    break;
+                default:
+                    break;
+            }
+        }
+        else if (agent.getStreak() <= -2){ //decrease difficulty
+            agent.resetStreak();
+            switch (questionDiff) {
+//                case "EASY":
+//                    break;
+                case "MEDIUM":
+                    questionDiff = "EASY";
+                    break;
+                case "HARD":
+                    questionDiff = "MEDIUM";
+                    break;
+                default:
+                    break;
+            }
+        }
+        System.out.println("STREAKKKKKKKKKKkk, "+ agent.getStreak());
+        resetAllVariables();
+//        int conf = currentUser.getConfidence();
+//        String difficulty = "";
+//        if (conf < 7){
+//            difficulty = "EASY";
+//        }
+//        else if (conf >=7 && conf <=14) {
+//            difficulty = "MEDIUM";           
+//        }
+//        else if (conf > 14){
+//            difficulty = "HARD";
+//        }
+        List<String []> questions = new ArrayList<>();
+        for (String [] question : allQuestions){
+            if (question[DIFFICULTY_INDEX].equals(questionDiff)){
+                questions.add(question);
+            }
+        }
+        Random rand = new Random();
+        int index = rand.nextInt(questions.size());
+        String [] questionParam = questions.get(index);
+        loadQuestion(questionParam);
+        startTime = System.currentTimeMillis();
+        hintAbuseTimer = startTime;
+        checkHintAvoidance();
+        agentTextArea.setText("Try this question"); 
+    }
+    
+    
     
     @FXML
     public void getRandomQuestion() throws IOException, CsvValidationException{
@@ -324,6 +454,7 @@ public class QuestionPage {
 //        System.out.println(type);
         loadQuestion(questionParam);
         startTime = System.currentTimeMillis();
+        hintAbuseTimer = startTime;
         checkHintAvoidance();
         agentTextArea.setText("Try this question");
     }
@@ -345,7 +476,7 @@ public class QuestionPage {
     public void loadQuestion(String [] questionParam) throws IOException, CsvValidationException{
         
         String type = getQuestionClassType(questionParam[QUESTION_TYPE_INDEX]);
-        System.out.println("TYPE: "+ type +", "+questionParam[QUESTION_TYPE_INDEX]);
+//        System.out.println("TYPE: "+ type +", "+questionParam[QUESTION_TYPE_INDEX]);
         FXMLLoader loader = new FXMLLoader(getClass().getResource(type + ".fxml"));
         Parent pane = loader.load();
         Question controller = loader.getController();
@@ -354,20 +485,18 @@ public class QuestionPage {
         borderPane.setCenter(pane);
     }
     
-    @FXML 
-    public void loadQuestion() throws IOException, CsvValidationException{
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("MultipleChoice.fxml"));
-//        FXMLLoader loader = new FXMLLoader(getClass().getResource("MissingLine.fxml"));
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("CodingQuestion.fxml"));
-        Parent pane = loader.load();
-        Question controller = loader.getController();
-//        createQuestion(controller);
-         
-       
-//        Parent mcq = FXMLLoader.load(getClass().getResource("MultipleChoice.fxml"));
-        borderPane.setCenter(pane);        
-
-    }
+//    @FXML 
+//    public void loadQuestion() throws IOException, CsvValidationException{
+////        FXMLLoader loader = new FXMLLoader(getClass().getResource("MultipleChoice.fxml"));
+////        FXMLLoader loader = new FXMLLoader(getClass().getResource("MissingLine.fxml"));
+//        FXMLLoader loader = new FXMLLoader(getClass().getResource("CodingQuestion.fxml"));
+//        Parent pane = loader.load();
+//        Question controller = loader.getController();
+////        createQuestion(controller);       
+////        Parent mcq = FXMLLoader.load(getClass().getResource("MultipleChoice.fxml"));
+//        borderPane.setCenter(pane);        
+//
+//    }
     
     public void createQuestion(Question controller, String [] data){
         switch (data[QUESTION_TYPE_INDEX]) {
@@ -391,18 +520,72 @@ public class QuestionPage {
         }
     }
     
-    public void answeredCorrectly() throws FileNotFoundException{
+    public void answeredCorrectly() throws FileNotFoundException, IOException, CsvException{
         stopAllTimers();
-        agent.answeredCorrectly(hintUsed);
-//        agentTextArea.setText("Great Job!");
+        String difficulty = currentQuestion.getDifficulty();
+        agent.answeredCorrectly(hintUsed, difficulty);
+        agent.updateUserVariables();
     }
     
-    public void changeAgentImage() throws FileNotFoundException{
-        Image img = new Image(getClass().getResource("images/coolAgent.png").toString());
-        
-//        agentImg.setImage(new Image(new FileInputStream("images/coolAgent.png")));
+    public void incorrectAnswer(){
+        stopAllTimers();
+        checkHintAvoidance();
+        agent.increaseAttempts();
+        agent.incorrect(currentQuestion.getDifficulty());
+    }    
+    
+    /**
+     * Changes the agent image
+     * @param image "default", "coolAgent", "helpAbuse"
+     * @throws FileNotFoundException 
+     */
+    public void changeAgentImage(String image) throws FileNotFoundException{
+//        Image img = new Image(getClass().getResource("images/coolAgent.png").toString()); 
+        Image img = new Image(getClass().getResource("images/"+image+".png").toString()); 
         agentImg.setImage(img);
-        toggleClap();
+    }
+    
+    private void timedAgentImage(String directory, int time, String afterMsg){
+        Image img = new Image(directory);
+        agentImg.setImage(img);
+        Timer timer = new Timer();    // 1000 = 1 second
+        timer.schedule(
+            new TimerTask() {
+                int tick = 0;
+                    
+            @Override
+            public void run() {
+                System.out.println("starto");
+//                    try {
+//                        changeAgentImage("helpAbuse");
+//                    } catch (FileNotFoundException ex) {
+//                        Logger.getLogger(QuestionPage.class.getName()).log(Level.SEVERE, null, ex);
+//                    }
+                if (tick  == 1){
+                    System.out.println("cancelled");
+                    try {
+                        changeAgentImage("default");
+                        agentTextArea.setText(afterMsg);
+                        stopAllTimers();
+                        checkHintAvoidance();
+                    } catch (FileNotFoundException ex) {
+                        
+                    }
+                    
+                    timer.cancel();
+                }  
+                tick++;
+            }
+        }, 0, time);
+        
+    }
+    
+    private void setDefaultAgent(){
+        Image img = new Image(getClass().getResource("images/default.png").toString());        
+        agentImg.setImage(img);
+        if (clapGif.isVisible()) {
+            toggleClap();
+        }
     }
     
     private void setupMCQ(String [] data, MultipleChoice controller){
@@ -412,9 +595,6 @@ public class QuestionPage {
         List<String> answers = new ArrayList(Arrays.asList(temp));
         answers.add(data[CORRECT_ANS_INDEX]);
         controller.setHints(data[HINT1_INDEX], data[HINT2_INDEX], data[HINT3_INDEX]);
-    //                for(String p: answers){
-    //                    System.out.println(p);  
-    //                }
         Collections.shuffle(answers);
         controller.setOption1Text(answers.get(0));
         controller.setOption2Text(answers.get(1));
@@ -423,7 +603,6 @@ public class QuestionPage {
     }
     
     private void setupMissingLineQuestion(String [] data, MissingLine controller){
-        System.out.println("XDDDDDDDDDDDDDDDDDDDDDD");
         setQuestionParams(data, controller);
                     
     }
@@ -431,7 +610,6 @@ public class QuestionPage {
     private void setupCodingQuestion(String [] data, CodingQuestion controller){
         controller.setDifficulty(data[DIFFICULTY_INDEX]);
         controller.setQuestion(data[QUESTION_TITLE_INDEX]);      
-//        setTitle_Code_Answer(data, controller);
         System.out.println(data[CORRECT_ANS_INDEX]);
         controller.getAnswer(data[CORRECT_ANS_INDEX]);
         System.out.println("CODE DATA: "+data[CODE_INDEX]);
@@ -453,6 +631,7 @@ public class QuestionPage {
     
     
     public void openHomePage(ActionEvent e) throws IOException{
+        stopAllTimers();
         Parent homepageParent = FXMLLoader.load(getClass().getResource("Home.fxml"));
         Scene homepageScene = new Scene(homepageParent);
         
@@ -484,6 +663,50 @@ public class QuestionPage {
         }
         clapGif.setVisible(true);
         clapGif.setManaged(true);
+    }
+    
+    public void notGivenUp(){
+        hideAllPopupMessages();
+        agent.notGivenUp();
+    }
+    
+    public void hideAllPopupMessages(){
+        for (Node n : stackPane.getChildren()){
+            if (n.equals(borderPane)){ continue;}
+            BorderPane p = (BorderPane) n;
+            p.setVisible(false);
+        }
+//        for (int i = 1; i<=2; i++ ){
+//        stackPane.getChildren().get(i).setVisible(false);        
+//        } 
+        borderPane.setDisable(false);           
+    }
+    
+    public void showGiveUpPane(){
+        stackPane.getChildren().get(2).setVisible(true);
+        borderPane.setDisable(true);
+    }
+    
+    public void givenUp() throws IOException, CsvException{
+        agent.addConfidence(-2);
+        agent.addEffort(-2);
+        agent.addIndependence(-2);
+        agent.updateUserVariables();
+        startTime = System.currentTimeMillis(); 
+        hideAllPopupMessages();
+        getNewQuestion();
+    }
+    
+    @FXML
+    public void openSelfReport(ActionEvent e) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SelfReport.fxml"));
+        Parent root = loader.load();
+        SelfReportController controller = (SelfReportController) loader.getController();
+        controller.setCurrentuser(currentUser);;
+        Stage stage = new Stage();    
+        stage.setTitle("Self-Report");
+        stage.setScene(new Scene(root, 600, 450));
+        stage.show();
     }
      /*
     public void createQuestion(Question controller) throws CsvValidationException{

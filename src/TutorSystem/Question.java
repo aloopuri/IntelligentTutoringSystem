@@ -6,9 +6,11 @@
 package TutorSystem;
 
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -41,13 +43,16 @@ public abstract class Question {
     protected int numOfSubmitAns;
     private String hintsMessage;
     private boolean didAction;
-    private boolean isHintAbuse;
+    
+    private boolean answered;
+//    private boolean isHintAbuse;
     
     public Question(){
         hintsMessage = "";
         curHintNum = 1;    
         numOfSubmitAns = 0;
         didAction = false;
+        answered = false;
 //        checkPeriodically();
     }
     
@@ -73,28 +78,28 @@ public abstract class Question {
         questionPage = qp;
     }
     
-    private void checkPeriodically(){
-        Timer timer = new Timer();    // 1000 = 1 second
-        timer.schedule(
-            new TimerTask() {
-                int tick = 0;
-                    
-            @Override
-            public void run() {
-                System.out.println("pong");
-                if (didAction){
-                    System.out.println("ENDEDDD");
-                    timer.cancel();
-                }
-                
-            }
-        }, 0, 2000);
-    }
-    
-    public void didAction(){
-        didAction = true;
-    }
-    
+//    private void checkPeriodically(){
+//        Timer timer = new Timer();    // 1000 = 1 second
+//        timer.schedule(
+//            new TimerTask() {
+//                int tick = 0;
+//                    
+//            @Override
+//            public void run() {
+//                System.out.println("pong");
+//                if (didAction){
+//                    System.out.println("ENDEDDD");
+//                    timer.cancel();
+//                }
+//                
+//            }
+//        }, 0, 2000);
+//    }
+//    
+//    public void didAction(){
+//        didAction = true;
+//    }
+//    
     public String getDifficulty(){
         return difficulty;
     }
@@ -145,14 +150,27 @@ public abstract class Question {
         return "";
     }
     
-    public void answerCorrect(){
+    public boolean isAllHintsUsed(){
+        if (getHint(curHintNum).equals("")){
+            return true;
+        }
+        return false;
+    }
+    
+    public void answerCorrect() throws FileNotFoundException, IOException, CsvException{
+        checkAnswerBtn.setDisable(true);
+        answered = true;
         questionPage.answeredCorrectly();
     }
     
     public void incorrectAnswer(){
-        
-    }
+        questionPage.incorrectAnswer();
+    } 
     
+    public boolean questionAnswered(){
+        return answered;
+    }
+   
     
 
 }

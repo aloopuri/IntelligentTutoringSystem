@@ -7,6 +7,9 @@ package TutorSystem;
 
 import bsh.EvalError;
 import bsh.Interpreter;
+import com.opencsv.exceptions.CsvException;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,7 +17,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
  *
@@ -31,7 +33,7 @@ public class CodingQuestion extends Question{
         correctAnsInterpreter = new Interpreter();
         correctAnsInterpreter.setStrictJava(true);
         variables = new ArrayList();
-        chances = 3;
+        chances = 2;
 //        i.set
         
     }
@@ -58,6 +60,8 @@ public class CodingQuestion extends Question{
             else {
                 chances--;
                 if (chances == 0){
+                    incorrectAnswer();
+//                    System.out.println("YOU FAILED");
                     // do the hint stuff and then perhaps reset chances
                 }
             }
@@ -69,6 +73,10 @@ public class CodingQuestion extends Question{
 //            Logger.getLogger(CodingQuestion.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NullPointerException n){
             System.out.println("Variable not found");
+        } catch (FileNotFoundException ex) {
+            System.out.println("File not found");
+        } catch (IOException | CsvException ex) {
+            Logger.getLogger(CodingQuestion.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -109,7 +117,7 @@ public class CodingQuestion extends Question{
         try {
             for (String v : variables){
                 errVar = v;
-                System.out.println(correctAns.get(v) +", "+ correctAns.get(v).getClass());
+//                System.out.println(correctAns.get(v) +", "+ correctAns.get(v).getClass());
                 inputAns.get(v).getClass(); // Used to check if any variable is missing from answer
             }
         }

@@ -23,19 +23,16 @@
                   <Insets />
                </VBox.margin>
             </ImageView>
-            <TextArea editable="false" prefHeight="298.0" prefWidth="249.0" text="This is where the agent's messages go" wrapText="true" />
+            <TextArea editable="false" prefHeight="298.0" prefWidth="249.0" text="Hello there! &#10;Choose an activity on the sidebar" wrapText="true" />
          </children>
       </VBox>
    </right>
    <left>
       <VBox prefHeight="699.0" prefWidth="189.0" spacing="10.0" style="-fx-background-color: #97D992;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="statementsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openLearnPage" prefHeight="52.0" prefWidth="145.0" text="Statements" />
-            <Button fx:id="cdtnStatementBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" text="Condtional Statements" />
-            <Button fx:id="loopsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#printUser" prefHeight="52.0" prefWidth="145.0" text="Loops" />
+            <Button fx:id="statementsBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openLearnPage" prefHeight="52.0" prefWidth="145.0" text="Learn Java" />
             <Button fx:id="questionBtn" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openQuestionPage" prefHeight="52.0" prefWidth="145.0" text="Questions" />
             <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openSelfReport" prefHeight="52.0" prefWidth="145.0" text="Self-Report" />
-            <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="145.0" text="Code editor" />
             <VBox alignment="BOTTOM_CENTER" maxHeight="1.7976931348623157E308" prefWidth="100.0" VBox.vgrow="ALWAYS">
                <children>
                   <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#logout" prefHeight="52.0" prefWidth="145.0" text="Logout" />

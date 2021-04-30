@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
 <StackPane fx:id="stackPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="768.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/15.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="TutorSystem.QuestionPage">
    <children>
@@ -18,7 +19,7 @@
          <top>
             <HBox alignment="CENTER" prefHeight="69.0" prefWidth="1024.0" style="-fx-background-color: #2ad14b;" BorderPane.alignment="CENTER">
                <children>
-                  <Label fx:id="header" text="Question page">
+                  <Label fx:id="header" text="Questions">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -31,49 +32,57 @@
                <children>
                   <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0">
                      <children>
-                        <ImageView fx:id="clapGif" fitHeight="100.0" fitWidth="77.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="clapGif" fitHeight="111.0" fitWidth="107.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/clap.gif" />
                            </image>
                         </ImageView>
-                        <ImageView fx:id="agentImg" fitHeight="216.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fx:id="agentImg" fitHeight="188.0" fitWidth="195.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@images/default.png" />
                            </image>
                         </ImageView>
                      </children>
                   </HBox>
-                  <TextArea fx:id="agentTextArea" editable="false" prefHeight="298.0" prefWidth="249.0" text="Lets have some fun with Java!" wrapText="true" />
+                  <TextArea fx:id="agentTextArea" editable="false" prefHeight="322.0" prefWidth="276.0" text="Lets have some fun with Java!" wrapText="true">
+                     <font>
+                        <Font size="14.0" />
+                     </font></TextArea>
                </children>
             </VBox>
          </right>
          <bottom>
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="10.0" style="-fx-background-color: #97D992;" BorderPane.alignment="CENTER">
                <children>
-                  <Button fx:id="returnHomeBtn" mnemonicParsing="false" onAction="#openHomePage" prefHeight="44.0" prefWidth="170.0" text="Return Home">
+                  <Button fx:id="returnHomeBtn" mnemonicParsing="false" onAction="#openHomePage" prefHeight="44.0" prefWidth="140.0" text="Return Home">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="18.0" />
                      </font>
                   </Button>
-                  <HBox prefWidth="200.0" HBox.hgrow="ALWAYS" />
-                  <Button fx:id="syntaxBtn" mnemonicParsing="false" onAction="#btnPressed" prefHeight="44.0" prefWidth="125.0" text="Syntax">
+                  <Button mnemonicParsing="false" onAction="#openSelfReport" prefHeight="44.0" prefWidth="120.0" text="Self-report">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <HBox maxWidth="1.7976931348623157E308" prefHeight="80.0" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="syntaxBtn" mnemonicParsing="false" onAction="#showSyntax" prefHeight="44.0" prefWidth="125.0" text="Syntax">
+                     <font>
+                        <Font size="18.0" />
                      </font>
                   </Button>
                   <Button fx:id="hintBtn" mnemonicParsing="false" onAction="#giveHint" prefHeight="44.0" prefWidth="125.0" text="HINT">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="skipBtn" mnemonicParsing="false" onAction="#getRandomQuestion" prefHeight="44.0" text="New Question">
+                  <Button fx:id="skipBtn" mnemonicParsing="false" onAction="#getNewQuestion" prefHeight="44.0" text="New Question">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="18.0" />
                      </font>
                   </Button>
-                  <Button fx:id="hideAgentBtn" mnemonicParsing="false" onAction="#toggleAgentSidebar" prefHeight="44.0" prefWidth="140.0" text="Hide Agent">
+                  <Button fx:id="hideAgentBtn" mnemonicParsing="false" onAction="#toggleAgentSidebar" prefHeight="44.0" prefWidth="130.0" text="Hide Agent">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="18.0" />
                      </font>
                   </Button>
                </children>
@@ -83,14 +92,9 @@
             </HBox>
          </bottom>
          <center>
-            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                <children>
-                  <Label text="QUESTION Title">
-                     <font>
-                        <Font size="30.0" />
-                     </font>
-                  </Label>
-                  <Label text="question">
+                  <Label text="Click 'New Question' to start">
                      <font>
                         <Font size="30.0" />
                      </font>
@@ -98,21 +102,8 @@
                </children>
             </VBox>
          </center>
-         <left>
-            <VBox fx:id="agentInterface1" alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-background-color: #97D992;" BorderPane.alignment="CENTER">
-               <children>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="EASY" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="MEDIUM" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="HARD" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="RETRY" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
-               </padding>
-            </VBox>
-         </left>
       </BorderPane>
-      <BorderPane maxHeight="250.0" maxWidth="500.0" opacity="0.8" style="-fx-background-color: #97D992;" visible="false">
+      <BorderPane maxHeight="250.0" maxWidth="400.0" style="-fx-background-color: #97D992;" visible="false">
          <center>
             <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0" BorderPane.alignment="CENTER">
                <children>
@@ -127,6 +118,87 @@
                         <Button mnemonicParsing="false" onAction="#hideSuggestHint" prefHeight="40.0" prefWidth="80.0" text="NO" />
                      </children>
                   </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+            </VBox>
+         </center>
+      </BorderPane>
+      <BorderPane maxHeight="250.0" maxWidth="400.0" style="-fx-background-color: #97D992;" visible="false">
+         <center>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="40.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Do you really want to give up?" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">
+                     <children>
+                        <Button mnemonicParsing="false" onAction="#givenUp" prefHeight="40.0" prefWidth="80.0" text="YES" />
+                        <Button mnemonicParsing="false" onAction="#notGivenUp" prefHeight="40.0" prefWidth="80.0" text="NO" />
+                     </children>
+                  </HBox>
+               </children>
+               <padding>
+                  <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />
+               </padding>
+            </VBox>
+         </center>
+      </BorderPane>
+      <BorderPane maxHeight="450.0" maxWidth="500.0" style="-fx-background-color: #97D992;" visible="false">
+         <center>
+            <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="Basic Syntax" textAlignment="CENTER" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="CENTER_LEFT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Basic statement" underline="true">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type variableName = value">
+                           <font>
+                              <Font name="Courier New" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="IF statement" underline="true">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="if(condition) {&#10;    // executed block of code&#10;}">
+                           <font>
+                              <Font name="Courier New" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="For loops" underline="true">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="for(statement1; statement2; statement3) {&#10;    // executed block of code&#10;}&#10;">
+                           <font>
+                              <Font name="Courier New" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Where: &#10;Statement 1 is executed (one time) before the execution of the code block.&#10;Statement 2 defines the condition for executing the code block.&#10;Statement 3 is executed (every time) after the code block has been executed.">
+                           <font>
+                              <Font name="System Italic" size="14.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+                  <Button mnemonicParsing="false" onAction="#hideAllPopupMessages" prefHeight="40.0" prefWidth="80.0" text="Close" />
                </children>
                <padding>
                   <Insets bottom="30.0" left="30.0" right="30.0" top="30.0" />

@@ -93,16 +93,28 @@ public class User {
     
     public void addConfidence(int num) throws IOException, CsvException{
         int newVal = confidence + num;
-        int bound = withinBound(newVal);
-        updateConfidence(bound);
+        int boundedVal = withinBound(newVal);
+        updateConfidence(boundedVal);
     }
     
     public void addEffort(int num) throws IOException, CsvException{
         int newVal= effort + num;
-        int bound = withinBound(newVal);
-        updateEffort(bound);
+        int boundedVal = withinBound(newVal);
+        updateEffort(boundedVal);
     }
     
+    public void addIndependence(int num) throws IOException, CsvException{
+        int newVal= effort + num;
+        int boundedVal = withinBound(newVal);
+        updateIndependence(boundedVal);
+    }
+    
+    /**
+     * Checks an if a number is within the specified bounds (1-20) and returns
+     * the lowest/highest number if outside bounds
+     * @param num
+     * @return Number within bounds(1-20) if bounds are exceeded
+     */
     private int withinBound(int num){
         int n = num;
         if ((n == 20) || (n == 1)){ return num;}
@@ -121,11 +133,18 @@ public class User {
         effort = newVal;
     }
     
-    public void updateIndependence(int newVal) throws IOException, CsvException{
+    private void updateIndependence(int newVal) throws IOException, CsvException{
         updateInformation(INDEPENDENCE_INDEX, newVal);
         independence = newVal;
     }
     
+    /**
+     * Updates the variables in the CSV file containing user information
+     * @param updateVarInd
+     * @param newVal
+     * @throws IOException
+     * @throws CsvException 
+     */
     private void updateInformation(int updateVarInd, int newVal) throws IOException, CsvException{
         try {
             File file = new File("src/TutorSystem/users.csv");

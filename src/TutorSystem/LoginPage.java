@@ -188,11 +188,11 @@ public class LoginPage /*extends Application*/{
             sb.append(",");
             sb.append(password);
             sb.append(",");
-            sb.append("1");
+            sb.append("10");
             sb.append(",");
-            sb.append("1");
+            sb.append("10");
             sb.append(",");
-            sb.append("1");            
+            sb.append("10");            
             sb.append("\n");
             writer.write(sb.toString());
             errorMessage.setText("Registered! Please press login now.");

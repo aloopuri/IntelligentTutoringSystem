@@ -6,13 +6,17 @@
 package TutorSystem;
 
 import com.opencsv.CSVReader;
+import com.opencsv.exceptions.CsvException;
 import com.opencsv.exceptions.CsvValidationException;
 import java.awt.event.ActionEvent;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -71,12 +75,19 @@ public class MultipleChoice extends Question{
         String answer = selectedAnswer.getText();
         if (answer.equals(correctAnswer)){
             selectedAnswer.setTextFill(Color.rgb(104, 209, 6));
-//            question.setText("WOWO");
-            answerCorrect();
+            try {
+                //            question.setText("WOWO");
+                answerCorrect();
+            } catch (FileNotFoundException ex) {
+                System.out.println("error in mcq");
+            } catch (IOException | CsvException ex) {
+                Logger.getLogger(MultipleChoice.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         else {
             selectedAnswer.setDisable(true);
             selectedAnswer.setTextFill(Color.RED);
+            incorrectAnswer();
 
         }
     }

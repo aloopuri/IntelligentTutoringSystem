@@ -42,9 +42,9 @@ public class Homepage extends Application {
 //    private ArrayList<Pane> panels;
     @FXML private Pane currentPanel;    
     @FXML private Label welcomeLabel;
-    @FXML private Button statementsBtn;
-    @FXML private Button cdtnStatementBtn;
-    @FXML private Button loopsBtn;  
+    @FXML private Button learnJava;
+//    @FXML private Button cdtnStatementBtn;
+//    @FXML private Button loopsBtn;  
     @FXML private Button questionBtn;
     @FXML private VBox agentInterface;
 //    private LearningPage learnPage;
